@@ -3,6 +3,7 @@ import './DashboardRoute.css'
 import LanguageService from '../../services/language-service'
 import UserContext from '../../contexts/UserContext'
 import { Link } from 'react-router-dom'
+import Words from '../../components/Words/Words'
 
 class DashboardRoute extends Component {
 
@@ -24,25 +25,25 @@ class DashboardRoute extends Component {
   renderWords() {
     const { words = [] } = this.context
     return words.map(word =>
-      <li>
-        <h4>{word.original}</h4>
-        <p>{`correct answer count: ${word.correct_count}`}</p>
-        <p>{`incorrect answer count: ${word.incorrect_count}`}</p>
-      </li>
+        <Words
+          key={word.id}
+          word={word}
+        />
     )
   }
 
   render() {
     const { language } = this.context
-    const { words } = this.context
     console.log(language)
     return (
       <section className="dashboard">
         <h2>{language.name}</h2>
         <h2>{`Total correct answers: ${language.total_score}`}</h2>
-        <h2><Link to={'/learn'}>Start practicing</Link></h2>
+        <Link to={'/learn'}>Start practicing</Link>
         <h3>Words to practice</h3>
-        {this.renderWords()}
+        <ul className="wordList">
+          {this.renderWords()}
+        </ul>
       </section>
     );
   }
