@@ -1,0 +1,23 @@
+.registration{
+    width: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white
+}
+
+.registration h2{
+    width: 50%;
+    font-size: 40px;
+    border-bottom: 4px solid #4caf50;
+    margin-bottom: 50px;
+    padding: 13px 0;
+}
+
+.registration p{
+    float: left;
+    font-size: 20px;
+    text-align: center;
+    line-height: 20px;
+}
