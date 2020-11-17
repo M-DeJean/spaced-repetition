@@ -34,7 +34,6 @@ class DashboardRoute extends Component {
 
   render() {
     const { language } = this.context
-    console.log(language)
     return (
       <section className="dashboard">
         <h2>{language.name}</h2>
