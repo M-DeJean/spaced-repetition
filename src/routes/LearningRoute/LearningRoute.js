@@ -11,7 +11,8 @@ class LearningRoute extends Component {
 
   state = {
     correct: false,
-    incorrect: false
+    incorrect: false,
+    guess: ''
   }
 
   static contextType = UserContext
@@ -24,8 +25,8 @@ class LearningRoute extends Component {
       .then(nextWord => {
         _nextWord = nextWord
         this.context.setNextWord(_nextWord)
+        return LanguageService.getLanguage()
       })
-    LanguageService.getLanguage()
       .then(language => {
         _language = language.language
         _words = language.words
@@ -37,6 +38,7 @@ class LearningRoute extends Component {
   handleSubmit = ev => {
     ev.preventDefault()
     const { guess } = ev.target
+    this.setState({ guess: guess.value })
     let _nextWord;
     let _result;
     this.context.clearError()
@@ -44,29 +46,19 @@ class LearningRoute extends Component {
       .then(result => {
         _result = result
         this.context.setResult(_result)
-        console.log(result)
+        if (guess.value !== result.answer) {
+          this.setState({ incorrect: true })
+        } else if (guess.value === result.answer) {
+          this.setState({ correct: true })
+        }
+        return LanguageService.getNextWord()
       })
-      .then(
-        LanguageService.getNextWord()
-          .then(nextWord => {
-            _nextWord = nextWord
-            this.context.setNextWord(_nextWord)
-            console.log("FETCHed")
-          })
-      )
-      console.log(guess.value, this.context.result.answer)
-    if (guess.value !== this.context.result.answer) {
-      this.setState({ incorrect: true })
-      console.log("State Changed")
-    } else if (guess.value === this.context.result.answer) {
-      this.setState({ correct: true })
-    }
-    guess.value = ''
   }
 
   renderCorrectRes() {
     const { result, nextWord } = this.context
     return <CorrectRes
+      guess={this.state.guess}
       result={result}
       nextWord={nextWord}
     />
@@ -74,6 +66,7 @@ class LearningRoute extends Component {
   renderIncorrectRes() {
     const { result, nextWord } = this.context
     return <IncorrectRes
+      guess={this.state.guess}
       result={result}
       nextWord={nextWord}
     />
@@ -82,11 +75,11 @@ class LearningRoute extends Component {
     const { nextWord, result, language } = this.context
     return (
       <>
-        { this.state.incorrect ? this.renderIncorrectRes() : this.state.correct ? this.renderCorrectRes() : <section className="learningRoute">
+        { result.isCorrect === false ? this.renderIncorrectRes() : result.isCorrect === true ? this.renderCorrectRes() : <section className="learningRoute">
           <h2>Translate the word:</h2>
           <span>{result.nextWord ? result.nextWord : nextWord.nextWord}</span><div className="DisplayScore">
             <p>
-              Your total score is: {result.totalScore ? result.totalScore : language.total_score}
+              Your total score is: {nextWord.totalScore}
             </p>
           </div>
           <form onSubmit={this.handleSubmit} className="learning">

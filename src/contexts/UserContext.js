@@ -15,6 +15,10 @@ const UserContext = React.createContext({
   setUser: () => { },
   processLogin: () => { },
   processLogout: () => { },
+  setLanguage: () => { },
+  setWords: () => { },
+  setNextWord: () => { },
+  setResult: () => { },
 })
 
 export default UserContext

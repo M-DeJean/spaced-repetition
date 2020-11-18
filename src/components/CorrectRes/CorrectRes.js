@@ -1,10 +1,22 @@
 import React, { Component } from 'react'
 import Button from '../Button/Button'
 import './CorrectRes.css'
+import LanguageService from '../../services/language-service'
+import UserContext from '../../contexts/UserContext'
 
-export default class IncorrectRes extends Component {
+export default class CorrectRes extends Component {
+
+    static contextType = UserContext
+
+    refreshPage() {
+        LanguageService.getNextWord()
+            .then(
+                window.location.reload(false)
+            )
+    }
+
     render() {
-        const { result, nextWord } = this.props
+        const { result, nextWord, guess } = this.props
         return (
             <div className="CorrectRes">
                 <div className="DisplayScore">
@@ -15,9 +27,9 @@ export default class IncorrectRes extends Component {
                 </div>
                 <div className="DisplayFeedback">
                     <p>
-                        {`The correct translation for ${nextWord.nextWord} was ${result.answer} and you chose ${result.guess}!`}
+                        {`The correct translation for ${nextWord.nextWord} was ${result.answer} and you chose ${guess}!`}
                     </p>
-                    <Button type="click">
+                    <Button onClick={this.refreshPage} type="click">
                         Try another word!
                     </Button>
                 </div>
