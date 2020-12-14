@@ -1,3 +1,8 @@
 .IncorrectRes {
     color: white;
+    text-align: center;
+}
+
+.IncorrectRes .Button {
+    width: 280px;
 }
