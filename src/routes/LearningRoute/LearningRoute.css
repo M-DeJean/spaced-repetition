@@ -1,3 +1,18 @@
 .learningRoute{
     color: white;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.learningRoute .learning{
+    width: 280px;
+    margin: auto;
+}
+
+@media screen and (max-width: 490px) {
+    .learningRoute .learning{
+        width: 100%;
+        padding: 20px;
+    }
 }

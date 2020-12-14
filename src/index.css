@@ -5,15 +5,27 @@
 }
 
 body {
-  margin: 0;
   padding: 0;
   font-family: "Ubuntu", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: url(./images/rio-de-janiero.jpg) no-repeat;
   background-size: cover;
+  height: 100%;
 }
 
 :root {
   --font-size: calc(10px + 1vmin);
+}
+
+@media screen and (max-width: 490px) {
+  html{
+    height: 100%;
+  }
+  body{
+    background-size: cover;
+    background: url(./images/rio-de-janiero.jpg) repeat;
+    background-position: top;
+  }
+
 }

@@ -1,5 +1,8 @@
 .dashboard{
     color: white;
+    text-align: center;
+    margin: auto;
+    width: 100%;
 }
 
 .dashboard a {
@@ -11,5 +14,6 @@
 
 .wordList{
     list-style-type: none;
+    padding: 0px;
 }
 

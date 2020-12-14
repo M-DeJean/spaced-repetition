@@ -39,7 +39,6 @@ class LearningRoute extends Component {
     ev.preventDefault()
     const { guess } = ev.target
     this.setState({ guess: guess.value })
-    let _nextWord;
     let _result;
     this.context.clearError()
     LanguageService.postListGuess(guess.value)
@@ -72,7 +71,7 @@ class LearningRoute extends Component {
     />
   }
   render() {
-    const { nextWord, result, language } = this.context
+    const { nextWord, result } = this.context
     return (
       <>
         { result.isCorrect === false ? this.renderIncorrectRes() : result.isCorrect === true ? this.renderCorrectRes() : <section className="learningRoute">

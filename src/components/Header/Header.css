@@ -21,4 +21,11 @@ header nav a{
 
 header span{
     color: white;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 490px) {
+    header h1 {
+        font-size: 1.5em;
+    }
 }
